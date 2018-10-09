@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="socket.io-stream.js"></script>
+
+    <script>
+        $(document).ready(function() {
+        var socket = io();
+        $(function(){
+            
+            socket.on('send data', function(data){
+                $('.res').hide();
+                console.log(data);
+                var html_data = '<tr><th>Phone Number</th><th>Firstname</th><th>Lastname</th><th>Region</th></tr>';
+                for(i in data){
+                    html_data += '<tr><td>' + data[i].PhoneNumber + '</td><td>' + data[i].FirstName + '</td><td>' + data[i].LastName + '</td><td>' + data[i].Region + '</td></tr>';
+                }
+                $('#res_tb').html(html_data);
+                $('.wait_mesg').hide();
+                $('.res').show();
+                
+            });
+
+        });
+
+        
+    });
+    //to export the data as excel
+    function Export() {
+            $("#res_tb").table2excel({
+                filename: "Result.xls"
+            });
+    }
+
+
+//recieving streamed data
+
+    // $(document).ready(function() {
+    //     $(function() {
+    //         var socket = io.connect('http://localhost:5000/user');
+
+    //         socket.on("connect",function() {
+    //             console.log("on connect");
+    //             ss(socket).on('file', function(stream,data){
+    //                 console.log("fiel recieved");
+    //                 console.log(data);
+
+    //                 var binaryString = "";
+
+    //                 stream.on('data', function(data) {
+    //                     console.log('data')
+
+    //                     for(var i=0;i<data.length;i++) {
+    //                         binaryString+=String.fromCharCode(data[i]);
+    //                     }
+
+    //                 });
+
+    //                 stream.on('end', function(data) {
+    //                     console.log('end')
+    //                     $("#res").attr("href","data:file/xlsx;base64,"+window.btoa(binaryString));
+
+    //                     binaryString = "";
+    //                 });
+
+    //             });
+    //         });
+    //     });
+    // });
+    
+    </script>
+
+
+    <title>Region Search</title>
+</head>
+<body>
+        <h1><a href="/region">Region Search</a></h1>
+    <div class="upload-wrapper">
+        <div class="result-block">
+            <h4 class="wait_mesg">Please wait while we process the uploaded file</h4>
+             <p class="res">Click <a class="link" href="#" onclick="Export();">here</a> to download processed file</p>
+            <!-- <button class="btn"><a class="link" href="#" onclick="Export();">Download File</a> </button> -->
+            <table class="res_table" id="res_tb">
+                
+            </table>
+            <!-- <a href="" id="res">Click</a> -->
+        </div>
+    </div>
+    
+</body>
+</html>

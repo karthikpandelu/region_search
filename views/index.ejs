@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- <script>
+        function validate(){
+            var fname = document.forms["upload"]["sentFile"].value;
+            var last = fname.slice(-5);
+            if(last != ".xlsx"){
+                alert("File should be of format 'file_name.xlsx'");
+                return fasle;
+            }
+        }
+    </script> -->
+    <title>Region Search</title>
+</head>
+<body>
+        <h1><a href="/region">Region Search</a></h1>
+    
+    <div class="upload-wrapper">
+            <div class="upload-block">
+                <h3 class="upload-title">Upload a file</h3>
+                <p><%= message %></p>
+                <!--  -->
+                <form name="upload_form" action="/search" method="POST" enctype="multipart/form-data">
+                <input type="file" name="upfile" required>
+                <br>
+                <br>
+                <input type="submit" name="Upload">
+                </form>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "region",
+  "version": "1.0.0",
+  "description": "application to find the region of a phone number",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
