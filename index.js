@@ -130,6 +130,6 @@ app.post('/search', function(req, res){
     // });
 });
 
-http.listen(5000, function(){
+http.listen((process.env.PORT || 5000), function(){
     console.log('Server started');
 });
